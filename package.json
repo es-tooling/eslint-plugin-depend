@@ -1,0 +1,58 @@
+{
+  "name": "eslint-plugin-optimize",
+  "version": "0.0.1",
+  "description": "An ESLint plugin to suggest optimized dependencies, native alternatives and more",
+  "main": "lib/main.js",
+  "files": [
+    "lib",
+    "!lib/test"
+  ],
+  "scripts": {
+    "clean:build": "rimraf lib",
+    "clean:test": "rimraf coverage",
+    "build:js": "npm run clean:build && tsc",
+    "build": "npm run lint && npm run build:js",
+    "lint": "eslint src",
+    "format": "prettier --write src",
+    "test": "npm run build:js && npm run clean:test && c8 node --test \"lib/**/*_test.js\"",
+    "prepublishOnly": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/es-tooling/eslint-plugin-optimize.git"
+  },
+  "keywords": [
+    "eslint",
+    "optimize",
+    "optimise",
+    "clutter",
+    "cleanup",
+    "package"
+  ],
+  "author": "James Garbutt (https://github.com/43081j)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/es-tooling/eslint-plugin-optimize/issues"
+  },
+  "homepage": "https://github.com/es-tooling/eslint-plugin-optimize#readme",
+  "devDependencies": {
+    "@eslint/js": "^8.56.0",
+    "@types/eslint": "^8.56.5",
+    "@types/estree": "^1.0.5",
+    "@types/node": "^20.11.19",
+    "@types/semver": "^7.5.8",
+    "@typescript-eslint/typescript-estree": "^7.1.1",
+    "c8": "^9.1.0",
+    "eslint": "^8.56.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-eslint-plugin": "^5.3.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^7.0.2"
+  },
+  "dependencies": {
+    "fd-package-json": "^1.2.0",
+    "semver": "^7.6.0"
+  }
+}
