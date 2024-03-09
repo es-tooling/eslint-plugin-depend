@@ -69,6 +69,17 @@ test('closestPackageSatisfiesNodeVersion', async (t) => {
     assert.equal(closestPackageSatisfiesNodeVersion(context, '10.9.8'), true);
   });
 
+  await t.test('true if package has range above version', () => {
+    const cwd = path.join(__dirname, '../../../test/fixtures/simple-package');
+    const filename = path.join(cwd, 'foo.js');
+    const context = {
+      cwd,
+      filename
+    } as Rule.RuleContext;
+
+    assert.equal(closestPackageSatisfiesNodeVersion(context, '1.2.3'), true);
+  });
+
   await t.test('false if package has no matching version', () => {
     const cwd = path.join(__dirname, '../../../test/fixtures/simple-package');
     const filename = path.join(cwd, 'foo.js');

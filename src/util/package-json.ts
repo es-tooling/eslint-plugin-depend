@@ -1,6 +1,7 @@
 import {Rule} from 'eslint';
 import {findPackageSync} from 'fd-package-json';
 import semverSatisfies from 'semver/functions/satisfies.js';
+import semverLessThan from 'semver/ranges/ltr.js';
 
 /**
  * Gets the node engine constraint from `package.json` if possible
@@ -74,5 +75,8 @@ export function closestPackageSatisfiesNodeVersion(
     return true;
   }
 
-  return semverSatisfies(version, nodeConstraint);
+  return (
+    semverLessThan(version, nodeConstraint) ||
+    semverSatisfies(version, nodeConstraint)
+  );
 }

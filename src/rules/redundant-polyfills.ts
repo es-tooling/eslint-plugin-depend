@@ -25,7 +25,10 @@ function processNode(
     return;
   }
 
-  if (!closestPackageSatisfiesNodeVersion(context, replacement.nodeVersion)) {
+  if (
+    replacement.nodeVersion &&
+    !closestPackageSatisfiesNodeVersion(context, replacement.nodeVersion)
+  ) {
     return;
   }
 
