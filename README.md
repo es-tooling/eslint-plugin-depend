@@ -40,6 +40,11 @@ export default [
 ];
 ```
 
+## Rules
+
+- [`optimize/redundant-polyfills`](./docs/rules/redundant-polyfills.md)
+- [`optimize/avoid-micro-utilities`](./docs/rules/avoid-micro-utilities.md)
+
 ## License
 
 MIT
