@@ -1,4 +1,4 @@
 export const recommended = {
-  plugins: ['optimize'],
+  plugins: ['depend'],
   rules: {}
 };

@@ -2,6 +2,5 @@
   "name": "no-engines",
   "private": true,
   "version": "0.0.1",
-  "description": "An ESLint plugin to suggest optimized dependencies, native alternatives and more",
   "main": "lib/main.js"
 }

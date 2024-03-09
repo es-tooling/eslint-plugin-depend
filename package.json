@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-optimize",
+  "name": "eslint-plugin-depend",
   "version": "0.0.1",
   "description": "An ESLint plugin to suggest optimized dependencies, native alternatives and more",
   "main": "lib/main.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/es-tooling/eslint-plugin-optimize.git"
+    "url": "git+https://github.com/es-tooling/eslint-plugin-depend.git"
   },
   "keywords": [
     "eslint",
@@ -32,9 +32,9 @@
   "author": "James Garbutt (https://github.com/43081j)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/es-tooling/eslint-plugin-optimize/issues"
+    "url": "https://github.com/es-tooling/eslint-plugin-depend/issues"
   },
-  "homepage": "https://github.com/es-tooling/eslint-plugin-optimize#readme",
+  "homepage": "https://github.com/es-tooling/eslint-plugin-depend#readme",
   "devDependencies": {
     "@eslint/js": "^8.56.0",
     "@types/eslint": "^8.56.5",

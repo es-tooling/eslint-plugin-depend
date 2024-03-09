@@ -1,7 +1,6 @@
-# eslint-plugin-optimize
+# eslint-plugin-depend
 
-This is an ESLint plugin to suggest various optimizations in your
-sources.
+This is an ESLint plugin to help suggest alternatives to various dependencies.
 
 Primarily, it will help detect dependency tree bloat and redundant
 polyfills.
@@ -9,7 +8,7 @@ polyfills.
 ## Install
 
 ```sh
-npm i -D eslint-plugin-optimize
+npm i -D eslint-plugin-depend
 ```
 
 ## Usage
@@ -19,7 +18,7 @@ Add to your `.eslintrc.json`:
 ```json
 {
   "extends": [
-    "plugin:optimize/recommended"
+    "plugin:depend/recommended"
   ]
 }
 ```
@@ -27,7 +26,7 @@ Add to your `.eslintrc.json`:
 Or if you're using (flat) config files, add to your `eslint.config.js`:
 
 ```ts
-import {configs} from 'eslint-plugin-optimize';
+import {configs} from 'eslint-plugin-depend';
 
 export default [
   configs.recommended,
@@ -42,8 +41,8 @@ export default [
 
 ## Rules
 
-- [`optimize/redundant-polyfills`](./docs/rules/redundant-polyfills.md)
-- [`optimize/avoid-micro-utilities`](./docs/rules/avoid-micro-utilities.md)
+- [`depend/redundant-polyfills`](./docs/rules/redundant-polyfills.md)
+- [`depend/avoid-micro-utilities`](./docs/rules/avoid-micro-utilities.md)
 
 ## License
 
