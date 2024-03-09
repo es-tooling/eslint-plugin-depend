@@ -18,32 +18,43 @@ ruleTester.run('redundant-polyfills', rule, {
       parser: tseslintParser
     },
     {
-      code: `import foo from 'unknown-module';`,
-      parser: tseslintParser
+      code: `import foo from 'unknown-module';`
     },
     {
-      code: `const foo = require('unknown-module');`,
-      parser: tseslintParser
+      code: `const foo = require('unknown-module');`
     },
     {
       code: `
         const moduleName = 'object' + '.entries';
         require(moduleName);
-      `,
-      parser: tseslintParser
+      `
     },
     {
       code: `
         const moduleName = 'object' + '.entries';
         await import(moduleName);
-      `,
-      parser: tseslintParser
+      `
     }
   ],
 
   invalid: [
     {
       code: `const entries = require('object.entries');`,
+      errors: [
+        {
+          line: 1,
+          column: 17,
+          messageId: 'redundantWithMdnPath',
+          data: {
+            name: 'object.entries',
+            replacement: 'Object.entries',
+            mdnPath: 'Global_Objects/Object/entries'
+          }
+        }
+      ]
+    },
+    {
+      code: `const entries = require('object.entries/whatever');`,
       errors: [
         {
           line: 1,

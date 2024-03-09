@@ -5,6 +5,61 @@ export interface Replacement {
   mdnPath?: string;
 }
 
+export const microUtilities: Replacement[] = [
+  {
+    moduleName: 'is-number',
+    replacement: `Use typeof v === 'number'`
+  },
+  {
+    moduleName: 'is-plain-object',
+    replacement: `Use typeof v === 'object' && v !== null && v.constructor === Object`
+  },
+  {
+    moduleName: 'is-primitve',
+    replacement: `Use v === null || (typeof v !== 'function' && typeof v !== 'object')`
+  },
+  {
+    moduleName: 'is-regexp',
+    replacement: `Use v instanceof RegExp, or if cross-realm, use Object.prototype.toString.call(v) === '[object RegExp]'`
+  },
+  {
+    moduleName: 'is-travis',
+    replacement: `Use ('TRAVIS' in process.env)`
+  },
+  {
+    moduleName: 'is-npm',
+    replacement: `Use process.env.npm_config_user_agent?.startsWith('npm')`
+  },
+  {
+    moduleName: 'clone-regexp',
+    replacement: `Use new RegExp(regexpToCopy)`
+  },
+  {
+    moduleName: 'split-lines',
+    replacement: `Use str.split(/\\r?\\n/)`
+  },
+  {
+    moduleName: 'is-windows',
+    replacement: `Use process.platform === 'win32'`
+  },
+  {
+    moduleName: 'is-whitespace',
+    replacement: `Use str.trim() === '' or /^\s*$/.test(str)`
+  },
+  {
+    moduleName: 'is-string',
+    replacement: `Use typeof str === 'string'`
+  },
+  {
+    moduleName: 'is-odd',
+    replacement: `Use (n % 2) === 1`
+  },
+  {
+    moduleName: 'is-even',
+    replacement: `Use (n % 2) === 0`
+  }
+];
+
 export const nativeReplacements: Replacement[] = [
   {
     moduleName: 'object.entries',
@@ -60,6 +115,13 @@ export const nativeReplacements: Replacement[] = [
     mdnPath: 'Global_Objects/Object/hasOwnProperty'
   },
   {
+    moduleName: 'has-own-prop',
+    nodeVersion: '0.10.0',
+    replacement:
+      'Object.prototype.hasOwnProperty.call(obj, prop) (or in later versions of node, `Object.hasOwn(obj, prop)`)',
+    mdnPath: 'Global_Objects/Object/hasOwnProperty'
+  },
+  {
     moduleName: 'array-map',
     nodeVersion: '0.10.0',
     replacement: 'Array.prototype.map',
@@ -73,6 +135,27 @@ export const nativeReplacements: Replacement[] = [
   },
   {
     moduleName: 'node.extend',
+    nodeVersion: '4.0.0',
+    replacement:
+      'Object.assign, or if deep clones are needed, use structuredClone',
+    mdnPath: 'Global_Objects/Object/assign'
+  },
+  {
+    moduleName: 'extend-shallow',
+    nodeVersion: '4.0.0',
+    replacement:
+      'Object.assign, or if deep clones are needed, use structuredClone',
+    mdnPath: 'Global_Objects/Object/assign'
+  },
+  {
+    moduleName: 'xtend',
+    nodeVersion: '4.0.0',
+    replacement:
+      'Object.assign, or if deep clones are needed, use structuredClone',
+    mdnPath: 'Global_Objects/Object/assign'
+  },
+  {
+    moduleName: 'defaults',
     nodeVersion: '4.0.0',
     replacement:
       'Object.assign, or if deep clones are needed, use structuredClone',
@@ -107,5 +190,41 @@ export const nativeReplacements: Replacement[] = [
     nodeVersion: '0.10.0',
     replacement: 'Object.defineProperties',
     mdnPath: 'Global_Objects/Object/defineProperties'
+  },
+  {
+    moduleName: 'left-pad',
+    nodeVersion: '8.0.0',
+    replacement: 'String.prototype.padStart',
+    mdnPath: 'Global_Objects/String/padStart'
+  },
+  {
+    moduleName: 'pad-left',
+    nodeVersion: '8.0.0',
+    replacement: 'String.prototype.padStart',
+    mdnPath: 'Global_Objects/String/padStart'
+  },
+  {
+    moduleName: 'filter-array',
+    nodeVersion: '0.10.0',
+    replacement: 'Array.prototype.filter',
+    mdnPath: 'Global_Objects/Array/filter'
+  },
+  {
+    moduleName: 'array-every',
+    nodeVersion: '0.10.0',
+    replacement: 'Array.prototype.every',
+    mdnPath: 'Global_Objects/Array/every'
+  },
+  {
+    moduleName: 'index-of',
+    nodeVersion: '0.10.0',
+    replacement: 'Array.prototype.indexOf',
+    mdnPath: 'Global_Objects/Array/indexOf'
+  },
+  {
+    moduleName: 'last-index-of',
+    nodeVersion: '0.10.0',
+    replacement: 'Array.prototype.lastIndexOf',
+    mdnPath: 'Global_Objects/Array/lastIndexOf'
   }
 ];

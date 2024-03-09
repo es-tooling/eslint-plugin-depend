@@ -1,8 +1,8 @@
 import {Rule} from 'eslint';
-import {TSESTree} from '@typescript-eslint/typescript-estree';
 import {getDocsUrl} from '../util/rule-meta.js';
 import {closestPackageSatisfiesNodeVersion} from '../util/package-json.js';
 import {nativeReplacements} from '../replacements.js';
+import {createImportListener} from '../util/imports.js';
 
 /**
  * Processes a given node and import/require source for replacements
@@ -77,52 +77,7 @@ export const rule: Rule.RuleModule = {
   },
   create: (context) => {
     return {
-      ImportDeclaration: (node) => {
-        if (
-          node.source.type !== 'Literal' ||
-          typeof node.source.value !== 'string'
-        ) {
-          return;
-        }
-
-        processNode(context, node, node.source.value);
-      },
-      ImportExpression: (node) => {
-        if (
-          node.source.type !== 'Literal' ||
-          typeof node.source.value !== 'string'
-        ) {
-          return;
-        }
-
-        processNode(context, node, node.source.value);
-      },
-      TSImportEqualsDeclaration: (astNode: Rule.Node) => {
-        const node = astNode as unknown as TSESTree.TSImportEqualsDeclaration;
-        const moduleRef = node.moduleReference;
-        if (
-          moduleRef.type !== 'TSExternalModuleReference' ||
-          moduleRef.expression.type !== 'Literal' ||
-          typeof moduleRef.expression.value !== 'string'
-        ) {
-          return;
-        }
-
-        processNode(context, astNode, moduleRef.expression.value);
-      },
-      CallExpression: (node) => {
-        const [arg0] = node.arguments;
-        if (
-          node.callee.type !== 'Identifier' ||
-          node.callee.name !== 'require' ||
-          arg0.type !== 'Literal' ||
-          typeof arg0.value !== 'string'
-        ) {
-          return;
-        }
-
-        processNode(context, node, arg0.value);
-      }
+      ...createImportListener(context, processNode)
     };
   }
 };

@@ -12,7 +12,11 @@ module.exports = [
   {
     rules: {
       'comma-dangle': ['error', 'never'],
-      'indent': 'off'
+      'indent': 'off',
+      'max-len': ['error', {
+        ignoreTemplateLiterals: true,
+        ignoreStrings: true
+      }]
     }
   },
   pluginRecommended,
