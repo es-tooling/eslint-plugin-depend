@@ -27,7 +27,7 @@ Example config:
   "rules": {
     "depend/ban-dependencies": ["error", {
       "presets": ["native"]
-    }
+    }]
   }
 }
 ```
@@ -46,7 +46,7 @@ For example:
   "rules": {
     "depend/ban-dependencies": ["error", {
       "modules": ["im-a-banned-package"]
-    }
+    }]
   }
 }
 ```
