@@ -128,6 +128,14 @@ function replacementListenerCallback(
         replacement: replacement.replacement
       }
     });
+  } else if (replacement.type === 'none') {
+    context.report({
+      node,
+      messageId: 'noneReplacement',
+      data: {
+        name: replacement.moduleName
+      }
+    });
   }
 }
 

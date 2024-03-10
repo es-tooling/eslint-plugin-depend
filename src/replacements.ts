@@ -20,12 +20,17 @@ export interface DocumentedReplacement extends ReplacementLike {
   moduleName: string;
 }
 
+export interface NoReplacement extends ReplacementLike {
+  type: 'none';
+}
+
 export type Replacement =
   | NativeReplacement
   | DocumentedReplacement
-  | SimpleReplacement;
+  | SimpleReplacement
+  | NoReplacement;
 
-export const lighterReplacements: Replacement[] = [
+export const preferredReplacements: Replacement[] = [
   {
     type: 'documented',
     moduleName: 'npm-run-all',

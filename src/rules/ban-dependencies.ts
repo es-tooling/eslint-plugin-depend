@@ -1,0 +1,93 @@
+import {Rule} from 'eslint';
+import {getDocsUrl} from '../util/rule-meta.js';
+import {
+  microUtilities,
+  preferredReplacements,
+  nativeReplacements,
+  Replacement
+} from '../replacements.js';
+import {createReplacementListener} from '../util/imports.js';
+
+interface BanDependenciesOptions {
+  presets?: string[];
+  modules?: string[];
+}
+
+const availablePresets: Record<string, Replacement[]> = {
+  microutilities: microUtilities,
+  native: nativeReplacements,
+  preferred: preferredReplacements
+};
+
+const defaultPresets = ['microutilities', 'native', 'preferred'];
+
+export const rule: Rule.RuleModule = {
+  meta: {
+    type: 'suggestion',
+    docs: {
+      description: 'Bans a list of dependencies from being used',
+      url: getDocsUrl('ban-dependencies')
+    },
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          presets: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
+          },
+          modules: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
+          }
+        },
+        additionalProperties: false
+      }
+    ],
+    messages: {
+      nativeReplacement:
+        '"{{name}}" should be replaced with native functionality. ' +
+        'You can instead use {{replacement}}. Read more here: {{url}}',
+      documentedReplacement:
+        '"{{name}}" should be replaced with an alternative package. ' +
+        'Read more here: {{url}}',
+      simpleReplacement:
+        '"{{name}}" should be replaced with inline/local logic.' +
+        '{{replacement}}',
+      noneReplacement:
+        '"{{name}}" is a banned dependency. An alternative should be used.'
+    }
+  },
+  create: (context) => {
+    const options = context.options[0] as BanDependenciesOptions | undefined;
+    const replacements: Replacement[] = [];
+    const presets = options?.presets ?? defaultPresets;
+    const modules = options?.modules;
+
+    for (const preset of presets) {
+      const presetReplacements = availablePresets[preset];
+      if (presetReplacements) {
+        for (const rep of presetReplacements) {
+          replacements.push(rep);
+        }
+      }
+    }
+
+    if (modules) {
+      for (const mod of modules) {
+        replacements.push({
+          type: 'none',
+          moduleName: mod
+        });
+      }
+    }
+
+    return {
+      ...createReplacementListener(context, replacements)
+    };
+  }
+};
