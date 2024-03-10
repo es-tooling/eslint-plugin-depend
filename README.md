@@ -41,9 +41,7 @@ export default [
 
 ## Rules
 
-- [`depend/redundant-polyfills`](./docs/rules/redundant-polyfills.md)
-- [`depend/avoid-micro-utilities`](./docs/rules/avoid-micro-utilities.md)
-- [`depend/prefer-light-dependencies`](./docs/rules/prefer-light-dependencies.md)
+- [`depend/ban-dependencies`](./docs/rules/ban-dependencies.md)
 
 ## License
 

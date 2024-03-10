@@ -1,5 +1,6 @@
-import {rule} from '../../rules/avoid-micro-utilities.js';
+import {rule} from '../../rules/ban-dependencies.js';
 import {RuleTester} from 'eslint';
+import {getMdnUrl, getReplacementsDocUrl} from '../../util/rule-meta.js';
 
 const ruleTester = new RuleTester({
   parserOptions: {
@@ -10,7 +11,7 @@ const ruleTester = new RuleTester({
 
 const tseslintParser = require.resolve('@typescript-eslint/parser');
 
-ruleTester.run('avoid-micro-utilities', rule, {
+ruleTester.run('ban-dependencies', rule, {
   valid: [
     'const foo = 303;',
     {
@@ -34,6 +35,14 @@ ruleTester.run('avoid-micro-utilities', rule, {
         const moduleName = 'is-' + 'number';
         await import(moduleName);
       `
+    },
+    {
+      code: `const foo = require('is-number');`,
+      options: [
+        {
+          presets: []
+        }
+      ]
     }
   ],
 
@@ -91,6 +100,53 @@ ruleTester.run('avoid-micro-utilities', rule, {
           data: {
             name: 'is-number',
             replacement: `Use typeof v === 'number'`
+          }
+        }
+      ]
+    },
+    {
+      code: `import foo from 'object.entries';`,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          messageId: 'nativeReplacement',
+          data: {
+            name: 'object.entries',
+            replacement: 'Object.entries',
+            url: getMdnUrl('Global_Objects/Object/entries')
+          }
+        }
+      ]
+    },
+    {
+      code: `import foo from 'npm-run-all';`,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          messageId: 'documentedReplacement',
+          data: {
+            name: 'npm-run-all',
+            url: getReplacementsDocUrl('npm-run-all')
+          }
+        }
+      ]
+    },
+    {
+      code: `import foo from 'oogabooga';`,
+      options: [
+        {
+          modules: ['oogabooga']
+        }
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          messageId: 'noneReplacement',
+          data: {
+            name: 'oogabooga'
           }
         }
       ]
