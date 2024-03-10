@@ -1,5 +1,8 @@
 import {Rule} from 'eslint';
 import {TSESTree} from '@typescript-eslint/typescript-estree';
+import {Replacement} from '../replacements.js';
+import {closestPackageSatisfiesNodeVersion} from './package-json.js';
+import {getMdnUrl, getReplacementsDocUrl} from './rule-meta.js';
 
 export type ImportListenerCallback = (
   context: Rule.RuleContext,
@@ -66,4 +69,79 @@ export function createImportListener(
       callback(context, node, arg0.value);
     }
   };
+}
+
+/**
+ * Callback used for the replacement listener
+ * @param {Rule.RuleContext} context ESLint context
+ * @param {Replacement[]} replacements List of replacements
+ * @param {Rule.Node} node Node being traversed
+ * @param {string} source Module being imported
+ * @return {void}
+ */
+function replacementListenerCallback(
+  context: Rule.RuleContext,
+  replacements: Replacement[],
+  node: Rule.Node,
+  source: string
+): void {
+  const replacement = replacements.find(
+    (rep) =>
+      rep.moduleName === source || source.startsWith(`${rep.moduleName}/`)
+  );
+
+  if (!replacement) {
+    return;
+  }
+
+  if (replacement.type === 'native') {
+    if (
+      replacement.nodeVersion &&
+      !closestPackageSatisfiesNodeVersion(context, replacement.nodeVersion)
+    ) {
+      return;
+    }
+    context.report({
+      node,
+      messageId: 'nativeReplacement',
+      data: {
+        name: replacement.moduleName,
+        replacement: replacement.replacement,
+        url: getMdnUrl(replacement.mdnPath)
+      }
+    });
+  } else if (replacement.type === 'documented') {
+    context.report({
+      node,
+      messageId: 'documentedReplacement',
+      data: {
+        name: replacement.moduleName,
+        url: getReplacementsDocUrl(replacement.docPath)
+      }
+    });
+  } else if (replacement.type === 'simple') {
+    context.report({
+      node,
+      messageId: 'simpleReplacement',
+      data: {
+        name: replacement.moduleName,
+        replacement: replacement.replacement
+      }
+    });
+  }
+}
+
+/**
+ * Creates a rule listener which finds replacements in imports/requires
+ * @param {Rule.RuleContext} context ESLint context
+ * @param {Replacement[]} replacements List of replacements
+ * @return {Rule.RuleListener}
+ */
+export function createReplacementListener(
+  context: Rule.RuleContext,
+  replacements: Replacement[]
+): Rule.RuleListener {
+  return createImportListener(context, (context, node, source) =>
+    replacementListenerCallback(context, replacements, node, source)
+  );
 }

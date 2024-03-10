@@ -1,58 +1,7 @@
 import {Rule} from 'eslint';
 import {getDocsUrl} from '../util/rule-meta.js';
-import {closestPackageSatisfiesNodeVersion} from '../util/package-json.js';
 import {nativeReplacements} from '../replacements.js';
-import {createImportListener} from '../util/imports.js';
-
-/**
- * Processes a given node and import/require source for replacements
- * @param {Rule.RuleContext} context ESLint context
- * @param {Rule.Node} node Node being processed
- * @param {string} source Module being imported
- * @return {void}
- */
-function processNode(
-  context: Rule.RuleContext,
-  node: Rule.Node,
-  source: string
-): void {
-  const replacement = nativeReplacements.find(
-    (rep) =>
-      rep.moduleName === source || source.startsWith(`${rep.moduleName}/`)
-  );
-
-  if (!replacement) {
-    return;
-  }
-
-  if (
-    replacement.nodeVersion &&
-    !closestPackageSatisfiesNodeVersion(context, replacement.nodeVersion)
-  ) {
-    return;
-  }
-
-  if (replacement.mdnPath) {
-    context.report({
-      node,
-      messageId: 'redundantWithMdnPath',
-      data: {
-        name: replacement.moduleName,
-        replacement: replacement.replacement,
-        mdnPath: replacement.mdnPath
-      }
-    });
-  } else {
-    context.report({
-      node,
-      messageId: 'redundant',
-      data: {
-        name: replacement.moduleName,
-        replacement: replacement.replacement
-      }
-    });
-  }
-}
+import {createReplacementListener} from '../util/imports.js';
 
 export const rule: Rule.RuleModule = {
   meta: {
@@ -65,19 +14,22 @@ export const rule: Rule.RuleModule = {
     },
     schema: [],
     messages: {
-      redundant:
+      simpleReplacement:
         '"{{name}}" is redundant within your supported versions of node.' +
         'It can likely be replaced by the natively available ' +
         '"{{replacement}}"',
-      redundantWithMdnPath:
+      nativeReplacement:
         '"{{name}}" is redundant within your supported versions of node.' +
         'It can likely be replaced by the natively available ' +
-        '"{{replacement}}" (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/{{mdnPath}})'
+        '"{{replacement}}" ({{url}})',
+      documentedReplacement:
+        '"{{name}}" is redundant within your supported versions of node.' +
+        'For possible replacements, see {{url}}'
     }
   },
   create: (context) => {
     return {
-      ...createImportListener(context, processNode)
+      ...createReplacementListener(context, nativeReplacements)
     };
   }
 };
