@@ -14,7 +14,7 @@
     "build": "npm run lint && npm run build:js",
     "lint": "eslint src",
     "format": "prettier --write src",
-    "test": "npm run build:js && npm run clean:test && c8 node --test \"lib/**/*_test.js\"",
+    "test": "npm run build:js && npm run clean:test && c8 node --test",
     "prepublishOnly": "npm run test"
   },
   "repository": {
