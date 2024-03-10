@@ -1,16 +1,14 @@
 import {Rule} from 'eslint';
 import {getDocsUrl} from '../util/rule-meta.js';
-import {nativeReplacements} from '../replacements.js';
+import {lighterReplacements} from '../replacements.js';
 import {createReplacementListener} from '../util/imports.js';
 
 export const rule: Rule.RuleModule = {
   meta: {
     type: 'suggestion',
     docs: {
-      description:
-        'Detects possibly redundant polyfills of natively available ' +
-        'functionality',
-      url: getDocsUrl('redundant-polyfills')
+      description: 'Prefers lighter alternatives over certain dependencies',
+      url: getDocsUrl('prefer-light-dependencies')
     },
     schema: [],
     messages: {
@@ -23,13 +21,13 @@ export const rule: Rule.RuleModule = {
         'It should be replaced by the natively available ' +
         '"{{replacement}}" ({{url}})',
       documentedReplacement:
-        '"{{name}}" is redundant within your supported versions of node.' +
+        '"{{name}}" should be replaced with a lighter alternative.' +
         'For possible replacements, see {{url}}'
     }
   },
   create: (context) => {
     return {
-      ...createReplacementListener(context, nativeReplacements)
+      ...createReplacementListener(context, lighterReplacements)
     };
   }
 };
