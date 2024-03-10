@@ -3,6 +3,7 @@ import {TSESTree} from '@typescript-eslint/typescript-estree';
 import {Replacement} from '../replacements.js';
 import {closestPackageSatisfiesNodeVersion} from './package-json.js';
 import {getMdnUrl, getReplacementsDocUrl} from './rule-meta.js';
+import type {AST as JsonESTree} from 'jsonc-eslint-parser';
 
 export type ImportListenerCallback = (
   context: Rule.RuleContext,
@@ -139,6 +140,46 @@ function replacementListenerCallback(
   }
 }
 
+const dependencyKeys = ['dependencies', 'devDependencies'];
+
+/**
+ * Creates a rule listener for detecting dependencies in a `package.json`
+ * file
+ * @param {Rule.RuleContext} context ESLint context
+ * @param {ImportListenerCallback} callback Listener callback
+ * @return {Rule.RuleListener}
+ */
+export function createPackageJsonListener(
+  context: Rule.RuleContext,
+  callback: ImportListenerCallback
+): Rule.RuleListener {
+  return {
+    'Program > JSONExpressionStatement > JSONObjectExpression > JSONProperty': (
+      astNode: Rule.Node
+    ) => {
+      const node = astNode as unknown as JsonESTree.JSONProperty;
+
+      if (
+        node.key.type === 'JSONLiteral' &&
+        typeof node.key.value === 'string' &&
+        dependencyKeys.includes(node.key.value) &&
+        node.value.type === 'JSONObjectExpression'
+      ) {
+        for (const prop of node.value.properties) {
+          if (
+            prop.key.type === 'JSONLiteral' &&
+            typeof prop.key.value === 'string'
+          ) {
+            callback(context, prop as unknown as Rule.Node, prop.key.value);
+          }
+        }
+      }
+    }
+  };
+}
+
+const packageJsonLikePath = /(^|[/\\])package.json$/;
+
 /**
  * Creates a rule listener which finds replacements in imports/requires
  * @param {Rule.RuleContext} context ESLint context
@@ -149,6 +190,12 @@ export function createReplacementListener(
   context: Rule.RuleContext,
   replacements: Replacement[]
 ): Rule.RuleListener {
+  if (packageJsonLikePath.test(context.filename)) {
+    return createPackageJsonListener(context, (context, node, name) =>
+      replacementListenerCallback(context, replacements, node, name)
+    );
+  }
+
   return createImportListener(context, (context, node, source) =>
     replacementListenerCallback(context, replacements, node, source)
   );
