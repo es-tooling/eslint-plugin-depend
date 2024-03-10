@@ -1,5 +1,6 @@
 import {rule} from '../../rules/redundant-polyfills.js';
 import {RuleTester} from 'eslint';
+import {getMdnUrl} from '../../util/rule-meta.js';
 
 const ruleTester = new RuleTester({
   parserOptions: {
@@ -44,11 +45,11 @@ ruleTester.run('redundant-polyfills', rule, {
         {
           line: 1,
           column: 17,
-          messageId: 'redundantWithMdnPath',
+          messageId: 'nativeReplacement',
           data: {
             name: 'object.entries',
             replacement: 'Object.entries',
-            mdnPath: 'Global_Objects/Object/entries'
+            url: getMdnUrl('Global_Objects/Object/entries')
           }
         }
       ]
@@ -59,11 +60,11 @@ ruleTester.run('redundant-polyfills', rule, {
         {
           line: 1,
           column: 17,
-          messageId: 'redundantWithMdnPath',
+          messageId: 'nativeReplacement',
           data: {
             name: 'object.entries',
             replacement: 'Object.entries',
-            mdnPath: 'Global_Objects/Object/entries'
+            url: getMdnUrl('Global_Objects/Object/entries')
           }
         }
       ]
@@ -74,11 +75,11 @@ ruleTester.run('redundant-polyfills', rule, {
         {
           line: 1,
           column: 1,
-          messageId: 'redundantWithMdnPath',
+          messageId: 'nativeReplacement',
           data: {
             name: 'object.entries',
             replacement: 'Object.entries',
-            mdnPath: 'Global_Objects/Object/entries'
+            url: getMdnUrl('Global_Objects/Object/entries')
           }
         }
       ]
@@ -89,11 +90,11 @@ ruleTester.run('redundant-polyfills', rule, {
         {
           line: 1,
           column: 23,
-          messageId: 'redundantWithMdnPath',
+          messageId: 'nativeReplacement',
           data: {
             name: 'object.entries',
             replacement: 'Object.entries',
-            mdnPath: 'Global_Objects/Object/entries'
+            url: getMdnUrl('Global_Objects/Object/entries')
           }
         }
       ]
@@ -105,11 +106,11 @@ ruleTester.run('redundant-polyfills', rule, {
         {
           line: 1,
           column: 1,
-          messageId: 'redundantWithMdnPath',
+          messageId: 'nativeReplacement',
           data: {
             name: 'object.entries',
             replacement: 'Object.entries',
-            mdnPath: 'Global_Objects/Object/entries'
+            url: getMdnUrl('Global_Objects/Object/entries')
           }
         }
       ]

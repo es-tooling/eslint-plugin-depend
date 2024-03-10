@@ -44,7 +44,7 @@ ruleTester.run('avoid-micro-utilities', rule, {
         {
           line: 1,
           column: 13,
-          messageId: 'avoid',
+          messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
             replacement: `Use typeof v === 'number'`
@@ -58,7 +58,7 @@ ruleTester.run('avoid-micro-utilities', rule, {
         {
           line: 1,
           column: 1,
-          messageId: 'avoid',
+          messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
             replacement: `Use typeof v === 'number'`
@@ -72,7 +72,7 @@ ruleTester.run('avoid-micro-utilities', rule, {
         {
           line: 1,
           column: 19,
-          messageId: 'avoid',
+          messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
             replacement: `Use typeof v === 'number'`
@@ -87,7 +87,7 @@ ruleTester.run('avoid-micro-utilities', rule, {
         {
           line: 1,
           column: 1,
-          messageId: 'avoid',
+          messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
             replacement: `Use typeof v === 'number'`
