@@ -22,5 +22,5 @@ export function getMdnUrl(path: string): string {
  * @return {string}
  */
 export function getReplacementsDocUrl(path: string): string {
-  return `https://github.com/es-tooling/module-replacements/blob/main/docs/modules/${path}`;
+  return `https://github.com/es-tooling/module-replacements/blob/main/docs/modules/${path}.md`;
 }
