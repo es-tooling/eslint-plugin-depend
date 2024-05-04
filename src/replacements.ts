@@ -35,6 +35,16 @@ export const preferredReplacements: Replacement[] = [
     type: 'documented',
     moduleName: 'npm-run-all',
     docPath: 'npm-run-all'
+  },
+  {
+    type: 'documented',
+    moduleName: 'is-builtin-module',
+    docPath: 'is-builtin-module'
+  },
+  {
+    type: 'documented',
+    moduleName: 'builtin-modules',
+    docPath: 'is-builtin-module'
   }
 ];
 
