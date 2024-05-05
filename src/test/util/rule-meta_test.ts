@@ -10,7 +10,7 @@ test('getDocsUrl', async (t) => {
   await t.test('gets the url of a given rule doc', () => {
     assert.equal(
       getDocsUrl('bloop'),
-      'https://github.com/43081j/eslint-plugin-assert/blob/main/docs/rules/bloop.md'
+      'https://github.com/es-tooling/eslint-plugin-depend/blob/main/docs/rules/bloop.md'
     );
   });
 });
