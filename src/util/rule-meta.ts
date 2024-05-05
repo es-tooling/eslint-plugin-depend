@@ -4,7 +4,7 @@
  * @return {string}
  */
 export function getDocsUrl(name: string): string {
-  return `https://github.com/43081j/eslint-plugin-assert/blob/main/docs/rules/${name}.md`;
+  return `https://github.com/es-tooling/module-replacements/blob/main/docs/modules/${name}.md`;
 }
 
 /**
