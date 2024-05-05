@@ -45,6 +45,16 @@ export const preferredReplacements: Replacement[] = [
     type: 'documented',
     moduleName: 'builtin-modules',
     docPath: 'is-builtin-module'
+  },
+  {
+    type: 'documented',
+    moduleName: 'eslint-plugin-react',
+    docPath: 'eslint-plugin-react'
+  },
+  {
+    type: 'documented',
+    moduleName: 'eslint-plugin-import',
+    docPath: 'eslint-plugin-import'
   }
 ];
 
