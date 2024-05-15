@@ -13,6 +13,7 @@ module.exports = [
     rules: {
       'comma-dangle': ['error', 'never'],
       'indent': 'off',
+      'quote-props': 'off',
       'max-len': ['error', {
         ignoreTemplateLiterals: true,
         ignoreStrings: true
