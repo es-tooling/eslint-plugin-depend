@@ -55,6 +55,11 @@ export const preferredReplacements: Replacement[] = [
     type: 'documented',
     moduleName: 'eslint-plugin-import',
     docPath: 'eslint-plugin-import'
+  },
+  {
+    type: 'documented',
+    moduleName: 'eslint-plugin-node',
+    docPath: 'eslint-plugin-node'
   }
 ];
 
