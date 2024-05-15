@@ -1,10 +1,15 @@
-import {recommended} from './configs/recommended.js';
+import type {Rule, ESLint} from 'eslint';
+import {configFactory as configRecommended} from './configs/recommended.js';
+import {config as configLegacyRecommended} from './configs/legacy-recommended.js';
 import {rule as banDependencies} from './rules/ban-dependencies.js';
 
-export const configs = {
-  recommended
+export const rules: Record<string, Rule.RuleModule> = {
+  'ban-dependencies': banDependencies
 };
 
-export const rules = {
-  'ban-dependencies': banDependencies
+const plugin: ESLint.Plugin = {rules};
+
+export const configs = {
+  recommended: configLegacyRecommended,
+  'flat/recommended': configRecommended(plugin)
 };

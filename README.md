@@ -29,11 +29,11 @@ Or if you're using (flat) config files, add to your `eslint.config.js`:
 import {configs} from 'eslint-plugin-depend';
 
 export default [
-  configs.recommended,
+  configs['flat/recommended'],
 
   // or if you want to specify `files`, or other options
   {
-    ...configs.recommended,
+    ...configs['flat/recommended'],
     files: ['test/**/*.js']
   }
 ];
