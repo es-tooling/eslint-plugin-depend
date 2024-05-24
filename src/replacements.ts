@@ -38,6 +38,11 @@ export const preferredReplacements: Replacement[] = [
   },
   {
     type: 'documented',
+    moduleName: 'cpx',
+    docPath: 'cpx'
+  },
+  {
+    type: 'documented',
     moduleName: 'is-builtin-module',
     docPath: 'is-builtin-module'
   },
