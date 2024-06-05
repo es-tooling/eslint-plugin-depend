@@ -1,11 +1,11 @@
 import {Rule} from 'eslint';
 import {getDocsUrl} from '../util/rule-meta.js';
 import {
-  microUtilities,
+  microUtilsReplacements,
   preferredReplacements,
   nativeReplacements,
-  Replacement
-} from '../replacements.js';
+  type ModuleReplacement
+} from 'module-replacements';
 import {createReplacementListener} from '../util/imports.js';
 
 interface BanDependenciesOptions {
@@ -13,10 +13,10 @@ interface BanDependenciesOptions {
   modules?: string[];
 }
 
-const availablePresets: Record<string, Replacement[]> = {
-  microutilities: microUtilities,
-  native: nativeReplacements,
-  preferred: preferredReplacements
+const availablePresets: Record<string, ModuleReplacement[]> = {
+  microutilities: microUtilsReplacements.moduleReplacements,
+  native: nativeReplacements.moduleReplacements,
+  preferred: preferredReplacements.moduleReplacements
 };
 
 const defaultPresets = ['microutilities', 'native', 'preferred'];
@@ -64,7 +64,7 @@ export const rule: Rule.RuleModule = {
   },
   create: (context) => {
     const options = context.options[0] as BanDependenciesOptions | undefined;
-    const replacements: Replacement[] = [];
+    const replacements: ModuleReplacement[] = [];
     const presets = options?.presets ?? defaultPresets;
     const modules = options?.modules;
 
