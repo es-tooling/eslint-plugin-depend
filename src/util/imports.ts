@@ -1,9 +1,9 @@
 import {Rule} from 'eslint';
 import {TSESTree} from '@typescript-eslint/typescript-estree';
-import {Replacement} from '../replacements.js';
 import {closestPackageSatisfiesNodeVersion} from './package-json.js';
 import {getMdnUrl, getReplacementsDocUrl} from './rule-meta.js';
 import type {AST as JsonESTree} from 'jsonc-eslint-parser';
+import type {ModuleReplacement} from 'module-replacements';
 
 export type ImportListenerCallback = (
   context: Rule.RuleContext,
@@ -75,14 +75,14 @@ export function createImportListener(
 /**
  * Callback used for the replacement listener
  * @param {Rule.RuleContext} context ESLint context
- * @param {Replacement[]} replacements List of replacements
+ * @param {ModuleReplacement[]} replacements List of replacements
  * @param {Rule.Node} node Node being traversed
  * @param {string} source Module being imported
  * @return {void}
  */
 function replacementListenerCallback(
   context: Rule.RuleContext,
-  replacements: Replacement[],
+  replacements: ModuleReplacement[],
   node: Rule.Node,
   source: string
 ): void {
@@ -183,12 +183,12 @@ const packageJsonLikePath = /(^|[/\\])package.json$/;
 /**
  * Creates a rule listener which finds replacements in imports/requires
  * @param {Rule.RuleContext} context ESLint context
- * @param {Replacement[]} replacements List of replacements
+ * @param {ModuleReplacement[]} replacements List of replacements
  * @return {Rule.RuleListener}
  */
 export function createReplacementListener(
   context: Rule.RuleContext,
-  replacements: Replacement[]
+  replacements: ModuleReplacement[]
 ): Rule.RuleListener {
   if (packageJsonLikePath.test(context.filename)) {
     return createPackageJsonListener(context, (context, node, name) =>
