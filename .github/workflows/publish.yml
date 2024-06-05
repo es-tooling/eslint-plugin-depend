@@ -26,15 +26,24 @@ jobs:
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - name: Install Dependencies
-        run: npm ci
-      - name: Publish
-        run: npm publish
+          node-version: 22.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm version ${TAG_NAME} --git-tag-version=false
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          TAG_NAME: ${{ github.ref_name }}
+      - run: npm publish --provenance --access public --tag next
+        if: "github.event.release.prerelease"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - run: npm publish --provenance --access public
+        if: "!github.event.release.prerelease"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
