@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "fd-package-json": "^1.2.0",
-    "module-replacements": "^2.0.0",
+    "module-replacements": "^2.1.0",
     "semver": "^7.6.0"
   }
 }
