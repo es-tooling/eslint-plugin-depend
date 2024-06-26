@@ -13,7 +13,23 @@ npm i -D eslint-plugin-depend
 
 ## Usage
 
-Add to your `.eslintrc.json`:
+If you're using the new flat config files, add to your `eslint.config.js`:
+
+```ts
+import * as depend from 'eslint-plugin-depend';
+
+export default [
+  depend.configs['flat/recommended'],
+
+  // or if you want to specify `files`, or other options
+  {
+    ...depend.configs['flat/recommended'],
+    files: ['test/**/*.js']
+  }
+];
+```
+
+For older legacy projects, add to your `.eslintrc.json`:
 
 ```json
 {
@@ -21,22 +37,6 @@ Add to your `.eslintrc.json`:
     "plugin:depend/recommended"
   ]
 }
-```
-
-Or if you're using (flat) config files, add to your `eslint.config.js`:
-
-```ts
-import {configs} from 'eslint-plugin-depend';
-
-export default [
-  configs['flat/recommended'],
-
-  // or if you want to specify `files`, or other options
-  {
-    ...configs['flat/recommended'],
-    files: ['test/**/*.js']
-  }
-];
 ```
 
 ### With `package.json`
