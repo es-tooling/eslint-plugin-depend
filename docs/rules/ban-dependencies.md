@@ -36,7 +36,7 @@ The **default** is `['native', 'microutilities', 'preferred']`.
 
 ### `modules`
 
-You may also specify your own list of packages which will be disallowed
+You may specify your own list of packages which will be disallowed
 in code.
 
 For example:
@@ -46,6 +46,23 @@ For example:
   "rules": {
     "depend/ban-dependencies": ["error", {
       "modules": ["im-a-banned-package"]
+    }]
+  }
+}
+```
+
+### `allowed`
+
+You may specify your own list of packages that will be allowed in code
+even if they are in presets.
+
+For example:
+
+```json
+{
+  "rules": {
+    "depend/ban-dependencies": ["error", {
+      "allowed": ["is-nan"]
     }]
   }
 }
@@ -68,6 +85,10 @@ The following patterns are not warnings:
 ```ts
 // with `presets: ['native']`
 Number.isNaN(v);
+
+// with `presets: ['native'], allowed: ['is-nan']`
+const isNaN = require('is-nan');
+isNaN(v);
 ```
 
 ## When Not To Use It

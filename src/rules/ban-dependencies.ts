@@ -11,6 +11,7 @@ import {createReplacementListener} from '../util/imports.js';
 interface BanDependenciesOptions {
   presets?: string[];
   modules?: string[];
+  allowed?: string[];
 }
 
 const availablePresets: Record<string, ModuleReplacement[]> = {
@@ -43,6 +44,12 @@ export const rule: Rule.RuleModule = {
             items: {
               type: 'string'
             }
+          },
+          allowed: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
           }
         },
         additionalProperties: false
@@ -67,22 +74,27 @@ export const rule: Rule.RuleModule = {
     const replacements: ModuleReplacement[] = [];
     const presets = options?.presets ?? defaultPresets;
     const modules = options?.modules;
+    const allowed = new Set(options?.allowed ?? []);
 
     for (const preset of presets) {
       const presetReplacements = availablePresets[preset];
       if (presetReplacements) {
         for (const rep of presetReplacements) {
-          replacements.push(rep);
+          if (!allowed.has(rep.moduleName)) {
+            replacements.push(rep);
+          }
         }
       }
     }
 
     if (modules) {
       for (const mod of modules) {
-        replacements.push({
-          type: 'none',
-          moduleName: mod
-        });
+        if (!allowed.has(mod)) {
+          replacements.push({
+            type: 'none',
+            moduleName: mod
+          });
+        }
       }
     }
 

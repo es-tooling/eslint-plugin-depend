@@ -46,6 +46,24 @@ ruleTester.run('ban-dependencies', rule, {
       ]
     },
     {
+      code: `import foo from 'is-nan';`,
+      options: [
+        {
+          presets: ['native'],
+          allowed: ['is-nan']
+        }
+      ]
+    },
+    {
+      code: `import foo from 'oogabooga';`,
+      options: [
+        {
+          modules: ['oogabooga'],
+          allowed: ['oogabooga']
+        }
+      ]
+    },
+    {
       code: `{
         "dependencies": {
           "unknown-module": "^1.0.0"
@@ -166,6 +184,46 @@ ruleTester.run('ban-dependencies', rule, {
       options: [
         {
           modules: ['oogabooga']
+        }
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          messageId: 'noneReplacement',
+          data: {
+            name: 'oogabooga'
+          }
+        }
+      ]
+    },
+    {
+      code: `import foo from 'object-is';`,
+      options: [
+        {
+          presets: ['native'],
+          allowed: ['is-nan']
+        }
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          messageId: 'nativeReplacement',
+          data: {
+            name: 'object-is',
+            replacement: 'Object.is',
+            url: getMdnUrl('Global_Objects/Object/is')
+          }
+        }
+      ]
+    },
+    {
+      code: `import foo from 'oogabooga';`,
+      options: [
+        {
+          modules: ['oogabooga'],
+          allowed: ['foo']
         }
       ],
       errors: [
