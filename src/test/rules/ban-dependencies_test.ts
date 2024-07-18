@@ -102,7 +102,7 @@ ruleTester.run('ban-dependencies', rule, {
           messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
-            replacement: `Use typeof v === "number"`
+            replacement: `Use typeof v === "number" || (typeof v === "string" && Number.isFinite(+v))`
           }
         }
       ]
@@ -116,7 +116,7 @@ ruleTester.run('ban-dependencies', rule, {
           messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
-            replacement: `Use typeof v === "number"`
+            replacement: `Use typeof v === "number" || (typeof v === "string" && Number.isFinite(+v))`
           }
         }
       ]
@@ -130,7 +130,7 @@ ruleTester.run('ban-dependencies', rule, {
           messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
-            replacement: `Use typeof v === "number"`
+            replacement: `Use typeof v === "number" || (typeof v === "string" && Number.isFinite(+v))`
           }
         }
       ]
@@ -145,7 +145,7 @@ ruleTester.run('ban-dependencies', rule, {
           messageId: 'simpleReplacement',
           data: {
             name: 'is-number',
-            replacement: `Use typeof v === "number"`
+            replacement: `Use typeof v === "number" || (typeof v === "string" && Number.isFinite(+v))`
           }
         }
       ]
