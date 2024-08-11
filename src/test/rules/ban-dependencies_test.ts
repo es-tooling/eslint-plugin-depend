@@ -1,23 +1,26 @@
 import {rule} from '../../rules/ban-dependencies.js';
 import {RuleTester} from 'eslint';
 import {getMdnUrl, getReplacementsDocUrl} from '../../util/rule-meta.js';
+import * as tseslintParser from '@typescript-eslint/parser';
+import * as jsonParser from 'jsonc-eslint-parser';
 
 const ruleTester = new RuleTester({
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 2022
+  languageOptions: {
+    parserOptions: {
+      sourceType: 'module',
+      ecmaVersion: 2022
+    }
   }
 });
-
-const tseslintParser = require.resolve('@typescript-eslint/parser');
-const jsonParser = require.resolve('jsonc-eslint-parser');
 
 ruleTester.run('ban-dependencies', rule, {
   valid: [
     'const foo = 303;',
     {
       code: `import foo = require('unknown-module');`,
-      parser: tseslintParser
+      languageOptions: {
+        parser: tseslintParser
+      }
     },
     {
       code: `import foo from 'unknown-module';`
@@ -70,7 +73,9 @@ ruleTester.run('ban-dependencies', rule, {
         }
       }`,
       filename: 'package.json',
-      parser: jsonParser
+      languageOptions: {
+        parser: jsonParser
+      }
     },
     {
       code: `{
@@ -79,7 +84,9 @@ ruleTester.run('ban-dependencies', rule, {
         }
       }`,
       filename: 'not-a-package.json',
-      parser: jsonParser
+      languageOptions: {
+        parser: jsonParser
+      }
     },
     {
       code: `{
@@ -88,7 +95,9 @@ ruleTester.run('ban-dependencies', rule, {
         }
       }`,
       filename: 'package.json',
-      parser: jsonParser
+      languageOptions: {
+        parser: jsonParser
+      }
     }
   ],
 
@@ -137,7 +146,9 @@ ruleTester.run('ban-dependencies', rule, {
     },
     {
       code: `import foo = require('is-number');`,
-      parser: tseslintParser,
+      languageOptions: {
+        parser: tseslintParser
+      },
       errors: [
         {
           line: 1,
@@ -244,7 +255,9 @@ ruleTester.run('ban-dependencies', rule, {
         }
       }`,
       filename: 'package.json',
-      parser: jsonParser,
+      languageOptions: {
+        parser: jsonParser
+      },
       errors: [
         {
           line: 3,
