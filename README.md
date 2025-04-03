@@ -16,17 +16,18 @@ npm i -D eslint-plugin-depend
 If you're using the new flat config files, add to your `eslint.config.js`:
 
 ```ts
-import * as depend from 'eslint-plugin-depend';
+import depend from 'eslint-plugin-depend';
+import {defineConfig} from 'eslint/config';
 
-export default [
-  depend.configs['flat/recommended'],
-
-  // or if you want to specify `files`, or other options
+export default defineConfig([
   {
-    ...depend.configs['flat/recommended'],
-    files: ['test/**/*.js']
+    files: ['**/*.js'],
+    plugins: {
+      depend
+    },
+    extends: ['depend/flat/recommended'],
   }
-];
+]);
 ```
 
 For older legacy projects, add to your `.eslintrc.json`:
