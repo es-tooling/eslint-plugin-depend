@@ -13,3 +13,5 @@ export const configs = {
   recommended: configLegacyRecommended,
   'flat/recommended': configRecommended(plugin)
 };
+
+export default plugin;
