@@ -14,4 +14,6 @@ export const configs = {
   'flat/recommended': configRecommended(plugin)
 };
 
+plugin.configs = configs;
+
 export default plugin;
