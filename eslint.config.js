@@ -1,8 +1,10 @@
-const {configs: eslintConfigs} = require('@eslint/js');
-const {configs: tseslintConfigs} = require('typescript-eslint');
-const pluginRecommended = require('eslint-plugin-eslint-plugin/configs/recommended');
+import eslintjs from '@eslint/js';
+import {configs as tseslintConfigs} from 'typescript-eslint';
+import pluginRecommended from 'eslint-plugin-eslint-plugin/configs/recommended';
 
-module.exports = [
+const {configs: eslintConfigs} = eslintjs;
+
+export default [
   {
     ...eslintConfigs.recommended,
     files: ['src/**/*.ts']

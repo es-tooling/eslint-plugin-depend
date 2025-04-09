@@ -3,6 +3,7 @@
   "version": "0.0.0-dev",
   "description": "An ESLint plugin to suggest optimized dependencies, native alternatives and more",
   "main": "lib/main.js",
+  "type": "module",
   "files": [
     "lib",
     "!lib/test"

@@ -8,6 +8,9 @@ import {
   getClosestPackage,
   closestPackageSatisfiesNodeVersion
 } from '../../util/package-json.js';
+import {fileURLToPath} from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 test('getNodeConstraint', async (t) => {
   await t.test('null when no engines object', () => {
