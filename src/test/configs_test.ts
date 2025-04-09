@@ -3,9 +3,9 @@ import * as assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {configs} from '../main.js';
 
-type ConfigLike = Linter.FlatConfig | ESLint.ConfigData;
+type ConfigLike = Linter.Config | ESLint.ConfigData;
 
-const isFlatConfig = (config: ConfigLike): config is Linter.FlatConfig =>
+const isFlatConfig = (config: ConfigLike): config is Linter.Config =>
   !Array.isArray(config.plugins);
 
 test('configs', async (t) => {
