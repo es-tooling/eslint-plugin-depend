@@ -1,6 +1,6 @@
-import {rule} from '../../rules/ban-dependencies.js';
+import {rule} from '../../rules/ban-dependencies.ts';
 import {RuleTester} from 'eslint';
-import {getMdnUrl, getReplacementsDocUrl} from '../../util/rule-meta.js';
+import {getMdnUrl, getReplacementsDocUrl} from '../../util/rule-meta.ts';
 import * as tseslintParser from '@typescript-eslint/parser';
 import * as jsonParser from 'jsonc-eslint-parser';
 

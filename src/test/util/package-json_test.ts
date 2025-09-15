@@ -7,7 +7,7 @@ import {
   getNodeConstraint,
   getClosestPackage,
   closestPackageSatisfiesNodeVersion
-} from '../../util/package-json.js';
+} from '../../util/package-json.ts';
 import {fileURLToPath} from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

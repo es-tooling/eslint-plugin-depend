@@ -4,7 +4,7 @@ import {
   getDocsUrl,
   getMdnUrl,
   getReplacementsDocUrl
-} from '../../util/rule-meta.js';
+} from '../../util/rule-meta.ts';
 
 test('getDocsUrl', async (t) => {
   await t.test('gets the url of a given rule doc', () => {

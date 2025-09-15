@@ -1,7 +1,7 @@
 import type {Rule, ESLint} from 'eslint';
-import {configFactory as configRecommended} from './configs/recommended.js';
-import {config as configLegacyRecommended} from './configs/legacy-recommended.js';
-import {rule as banDependencies} from './rules/ban-dependencies.js';
+import {configFactory as configRecommended} from './configs/recommended.ts';
+import {config as configLegacyRecommended} from './configs/legacy-recommended.ts';
+import {rule as banDependencies} from './rules/ban-dependencies.ts';
 import {readFileSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';

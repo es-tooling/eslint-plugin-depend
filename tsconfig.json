@@ -8,6 +8,8 @@
     "outDir": "./lib",
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
