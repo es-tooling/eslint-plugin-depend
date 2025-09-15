@@ -1,6 +1,6 @@
 import {readFileSync} from 'node:fs';
 import * as pkg from 'empathic/package';
-import {Rule} from 'eslint';
+import type {Rule} from 'eslint';
 import semverSatisfies from 'semver/functions/satisfies.js';
 import semverLessThan from 'semver/ranges/ltr.js';
 

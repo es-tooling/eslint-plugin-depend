@@ -2,7 +2,7 @@ import * as assert from 'node:assert';
 import {readFile} from 'node:fs/promises';
 import * as path from 'node:path';
 import {test} from 'node:test';
-import {Rule} from 'eslint';
+import type {Rule} from 'eslint';
 import {
   getNodeConstraint,
   getClosestPackage,

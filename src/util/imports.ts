@@ -1,4 +1,4 @@
-import {Rule} from 'eslint';
+import type {Rule} from 'eslint';
 import {TSESTree} from '@typescript-eslint/typescript-estree';
 import {closestPackageSatisfiesNodeVersion} from './package-json.ts';
 import {getMdnUrl, getReplacementsDocUrl} from './rule-meta.ts';
