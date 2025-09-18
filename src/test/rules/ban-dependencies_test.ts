@@ -1,19 +1,11 @@
-import {rule} from '../../rules/ban-dependencies.js';
-import {RuleTester} from 'eslint';
-import {getMdnUrl, getReplacementsDocUrl} from '../../util/rule-meta.js';
+import {runClassic} from 'eslint-vitest-rule-tester';
 import * as tseslintParser from '@typescript-eslint/parser';
 import * as jsonParser from 'jsonc-eslint-parser';
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      sourceType: 'module',
-      ecmaVersion: 2022
-    }
-  }
-});
+import {rule} from '../../rules/ban-dependencies.js';
+import {getMdnUrl, getReplacementsDocUrl} from '../../util/rule-meta.js';
 
-ruleTester.run('ban-dependencies', rule, {
+await runClassic('ban-dependencies', rule, {
   valid: [
     'const foo = 303;',
     {

@@ -1,5 +1,6 @@
-import {Rule} from 'eslint';
-import {findPackageSync} from 'fd-package-json';
+import {readFileSync} from 'node:fs';
+import * as pkg from 'empathic/package';
+import type {Rule} from 'eslint';
 import semverSatisfies from 'semver/functions/satisfies.js';
 import semverLessThan from 'semver/ranges/ltr.js';
 
@@ -45,7 +46,16 @@ export function getClosestPackage(
     return cachedPackageJson;
   }
 
-  const packageJson = findPackageSync(context.cwd);
+  const packageJsonPath = pkg.up({cwd: context.cwd});
+  let packageJson: Record<string, unknown> | null = null;
+
+  if (packageJsonPath) {
+    try {
+      packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+    } catch {
+      packageJson = null;
+    }
+  }
   packageCache.set(context, packageJson);
   return packageJson;
 }

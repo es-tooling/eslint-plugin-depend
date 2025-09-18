@@ -8,6 +8,7 @@
     "outDir": "./lib",
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true

@@ -1,4 +1,4 @@
-import {Rule} from 'eslint';
+import type {Rule} from 'eslint';
 import {getDocsUrl} from '../util/rule-meta.js';
 import {
   microUtilsReplacements,

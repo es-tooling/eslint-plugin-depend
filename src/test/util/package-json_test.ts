@@ -1,8 +1,7 @@
-import * as assert from 'node:assert';
+import {describe, expect, test} from 'vitest';
 import {readFile} from 'node:fs/promises';
 import * as path from 'node:path';
-import {test} from 'node:test';
-import {Rule} from 'eslint';
+import type {Rule} from 'eslint';
 import {
   getNodeConstraint,
   getClosestPackage,
@@ -12,40 +11,38 @@ import {fileURLToPath} from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-test('getNodeConstraint', async (t) => {
-  await t.test('null when no engines object', () => {
-    assert.equal(getNodeConstraint({}), null);
+describe('getNodeConstraint', () => {
+  test('null when no engines object', () => {
+    expect(getNodeConstraint({})).toBeNull();
   });
 
-  await t.test('null if engines is null', () => {
-    assert.equal(getNodeConstraint({engines: null}), null);
+  test('null if engines is null', () => {
+    expect(getNodeConstraint({engines: null})).toBeNull();
   });
 
-  await t.test('null if node version non-string', () => {
-    assert.equal(
+  test('null if node version non-string', () => {
+    expect(
       getNodeConstraint({
         engines: {
           node: 808
         }
-      }),
-      null
-    );
+      })
+    ).toBeNull();
   });
 
-  await t.test('returns node version', () => {
-    assert.equal(
+  test('returns node version', () => {
+    expect(
       getNodeConstraint({
         engines: {
           node: '1.2.3'
         }
-      }),
-      '1.2.3'
-    );
+      })
+    ).toBe('1.2.3');
   });
 });
 
-test('getClosestPackage', async (t) => {
-  await t.test('gets closest package.json', async () => {
+describe('getClosestPackage', () => {
+  test('gets closest package.json', async () => {
     const cwd = path.join(__dirname, '../../../test/fixtures/simple-package');
     const packageJson = JSON.parse(
       await readFile(path.join(cwd, 'package.json'), 'utf8')
@@ -56,12 +53,12 @@ test('getClosestPackage', async (t) => {
       filename
     } as Rule.RuleContext;
 
-    assert.deepEqual(getClosestPackage(context), packageJson);
+    expect(getClosestPackage(context)).toStrictEqual(packageJson);
   });
 });
 
-test('closestPackageSatisfiesNodeVersion', async (t) => {
-  await t.test('true if package has matching version', () => {
+describe('closestPackageSatisfiesNodeVersion', () => {
+  test('true if package has matching version', () => {
     const cwd = path.join(__dirname, '../../../test/fixtures/simple-package');
     const filename = path.join(cwd, 'foo.js');
     const context = {
@@ -69,10 +66,10 @@ test('closestPackageSatisfiesNodeVersion', async (t) => {
       filename
     } as Rule.RuleContext;
 
-    assert.equal(closestPackageSatisfiesNodeVersion(context, '10.9.8'), true);
+    expect(closestPackageSatisfiesNodeVersion(context, '10.9.8')).toBe(true);
   });
 
-  await t.test('true if package has range above version', () => {
+  test('true if package has range above version', () => {
     const cwd = path.join(__dirname, '../../../test/fixtures/simple-package');
     const filename = path.join(cwd, 'foo.js');
     const context = {
@@ -80,10 +77,10 @@ test('closestPackageSatisfiesNodeVersion', async (t) => {
       filename
     } as Rule.RuleContext;
 
-    assert.equal(closestPackageSatisfiesNodeVersion(context, '1.2.3'), true);
+    expect(closestPackageSatisfiesNodeVersion(context, '1.2.3')).toBe(true);
   });
 
-  await t.test('false if package has no matching version', () => {
+  test('false if package has no matching version', () => {
     const cwd = path.join(__dirname, '../../../test/fixtures/simple-package');
     const filename = path.join(cwd, 'foo.js');
     const context = {
@@ -91,10 +88,10 @@ test('closestPackageSatisfiesNodeVersion', async (t) => {
       filename
     } as Rule.RuleContext;
 
-    assert.equal(closestPackageSatisfiesNodeVersion(context, '11.10.9'), false);
+    expect(closestPackageSatisfiesNodeVersion(context, '11.10.9')).toBe(false);
   });
 
-  await t.test('true if no package found', () => {
+  test('true if no package found', () => {
     const cwd = '/';
     const filename = path.join(cwd, 'foo.js');
     const context = {
@@ -102,10 +99,10 @@ test('closestPackageSatisfiesNodeVersion', async (t) => {
       filename
     } as Rule.RuleContext;
 
-    assert.equal(closestPackageSatisfiesNodeVersion(context, '10.9.8'), true);
+    expect(closestPackageSatisfiesNodeVersion(context, '10.9.8')).toBe(true);
   });
 
-  await t.test('true if no node constraint', () => {
+  test('true if no node constraint', () => {
     const cwd = path.join(__dirname, '../../../test/fixtures/no-engines');
     const filename = path.join(cwd, 'foo.js');
     const context = {
@@ -113,6 +110,6 @@ test('closestPackageSatisfiesNodeVersion', async (t) => {
       filename
     } as Rule.RuleContext;
 
-    assert.equal(closestPackageSatisfiesNodeVersion(context, '10.9.8'), true);
+    expect(closestPackageSatisfiesNodeVersion(context, '10.9.8')).toBe(true);
   });
 });

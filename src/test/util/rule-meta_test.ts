@@ -1,33 +1,29 @@
-import * as assert from 'node:assert';
-import {test} from 'node:test';
+import {describe, expect, test} from 'vitest';
 import {
   getDocsUrl,
   getMdnUrl,
   getReplacementsDocUrl
 } from '../../util/rule-meta.js';
 
-test('getDocsUrl', async (t) => {
-  await t.test('gets the url of a given rule doc', () => {
-    assert.equal(
-      getDocsUrl('bloop'),
+describe('getDocsUrl', () => {
+  test('gets the url of a given rule doc', () => {
+    expect(getDocsUrl('bloop')).toEqual(
       'https://github.com/es-tooling/eslint-plugin-depend/blob/main/docs/rules/bloop.md'
     );
   });
 });
 
-test('getMdnUrl', async (t) => {
-  await t.test('gets the url of a given mdn doc', () => {
-    assert.equal(
-      getMdnUrl('bloop'),
+describe('getMdnUrl', () => {
+  test('gets the url of a given mdn doc', () => {
+    expect(getMdnUrl('bloop')).toEqual(
       'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/bloop'
     );
   });
 });
 
-test('getReplacementsDocUrl', async (t) => {
-  await t.test('gets the url of a given replacements doc', () => {
-    assert.equal(
-      getReplacementsDocUrl('bloop'),
+describe('getReplacementsDocUrl', () => {
+  test('gets the url of a given replacements doc', () => {
+    expect(getReplacementsDocUrl('bloop')).toEqual(
       'https://github.com/es-tooling/module-replacements/blob/main/docs/modules/bloop.md'
     );
   });
