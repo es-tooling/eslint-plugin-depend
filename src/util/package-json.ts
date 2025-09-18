@@ -47,9 +47,15 @@ export function getClosestPackage(
   }
 
   const packageJsonPath = pkg.up({cwd: context.cwd});
-  const packageJson = packageJsonPath
-    ? JSON.parse(readFileSync(packageJsonPath, 'utf8'))
-    : null;
+  let packageJson: Record<string, unknown> | null = null;
+
+  if (packageJsonPath) {
+    try {
+      packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+    } catch {
+      packageJson = null;
+    }
+  }
   packageCache.set(context, packageJson);
   return packageJson;
 }
