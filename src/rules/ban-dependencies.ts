@@ -1,12 +1,12 @@
 import type {Rule} from 'eslint';
-import {getDocsUrl} from '../util/rule-meta.ts';
+import {getDocsUrl} from '../util/rule-meta.js';
 import {
   microUtilsReplacements,
   preferredReplacements,
   nativeReplacements,
   type ModuleReplacement
 } from 'module-replacements';
-import {createReplacementListener} from '../util/imports.ts';
+import {createReplacementListener} from '../util/imports.js';
 
 interface BanDependenciesOptions {
   presets?: string[];

@@ -1,7 +1,7 @@
 import type {Rule} from 'eslint';
 import {TSESTree} from '@typescript-eslint/typescript-estree';
-import {closestPackageSatisfiesNodeVersion} from './package-json.ts';
-import {getMdnUrl, getReplacementsDocUrl} from './rule-meta.ts';
+import {closestPackageSatisfiesNodeVersion} from './package-json.js';
+import {getMdnUrl, getReplacementsDocUrl} from './rule-meta.js';
 import type {AST as JsonESTree} from 'jsonc-eslint-parser';
 import type {ModuleReplacement} from 'module-replacements';
 

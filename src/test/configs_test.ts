@@ -1,7 +1,7 @@
 import type {ESLint, Linter} from 'eslint';
 import * as assert from 'node:assert/strict';
 import {test} from 'node:test';
-import {configs} from '../main.ts';
+import {configs} from '../main.js';
 
 type ConfigLike = Linter.Config | ESLint.ConfigData;
 
