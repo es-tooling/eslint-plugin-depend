@@ -155,7 +155,7 @@ export function createPackageJsonListener(
   callback: ImportListenerCallback
 ): Rule.RuleListener {
   return {
-    // Support with `@eslint/json`
+    // Support for `@eslint/json`
     'Document > Object > Member': (node: MemberNode) => {
       if (
         node.name.type === 'String' &&
@@ -173,7 +173,7 @@ export function createPackageJsonListener(
         }
       }
     },
-    // Support with `jsonc-eslint-parser`
+    // Support for `jsonc-eslint-parser`
     'Program > JSONExpressionStatement > JSONObjectExpression > JSONProperty': (
       astNode: Rule.Node
     ) => {
