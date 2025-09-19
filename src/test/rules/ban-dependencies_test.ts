@@ -1,6 +1,7 @@
-import {runClassic} from 'eslint-vitest-rule-tester';
+import {run, runClassic} from 'eslint-vitest-rule-tester';
 import * as tseslintParser from '@typescript-eslint/parser';
 import * as jsonParser from 'jsonc-eslint-parser';
+import eslintJson from '@eslint/json';
 
 import {rule} from '../../rules/ban-dependencies.js';
 import {getMdnUrl, getReplacementsDocUrl} from '../../util/rule-meta.js';
@@ -250,6 +251,68 @@ await runClassic('ban-dependencies', rule, {
       languageOptions: {
         parser: jsonParser
       },
+      errors: [
+        {
+          line: 3,
+          column: 11,
+          messageId: 'documentedReplacement',
+          data: {
+            name: 'npm-run-all',
+            url: getReplacementsDocUrl('npm-run-all')
+          }
+        }
+      ]
+    }
+  ]
+});
+
+// Test using `@eslint/json` plugin
+run({
+  name: 'ban-dependencies-json',
+  configs: [
+    {
+      files: ['**/*.json'],
+      language: 'json/json',
+      plugins: {
+        json: eslintJson
+      }
+    }
+  ],
+  rule,
+  valid: [
+    {
+      code: `{
+        "dependencies": {
+          "unknown-module": "^1.0.0"
+        }
+      }`,
+      filename: 'package.json'
+    },
+    {
+      code: `{
+        "dependencies": {
+          "npm-run-all": "^1.0.0"
+        }
+      }`,
+      filename: 'not-a-package.json'
+    },
+    {
+      code: `{
+        "not-dependencies": {
+          "some-other-nonsense": 123
+        }
+      }`,
+      filename: 'package.json'
+    }
+  ],
+  invalid: [
+    {
+      code: `{
+        "dependencies": {
+          "npm-run-all": "^1.0.0"
+        }
+      }`,
+      filename: 'package.json',
       errors: [
         {
           line: 3,

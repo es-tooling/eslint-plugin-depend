@@ -2,6 +2,7 @@ import type {Rule} from 'eslint';
 import {TSESTree} from '@typescript-eslint/typescript-estree';
 import {closestPackageSatisfiesNodeVersion} from './package-json.js';
 import {getMdnUrl, getReplacementsDocUrl} from './rule-meta.js';
+import type {MemberNode} from '@humanwhocodes/momoa';
 import type {AST as JsonESTree} from 'jsonc-eslint-parser';
 import type {ModuleReplacement} from 'module-replacements';
 
@@ -154,6 +155,25 @@ export function createPackageJsonListener(
   callback: ImportListenerCallback
 ): Rule.RuleListener {
   return {
+    // Support for `@eslint/json`
+    'Document > Object > Member': (node: MemberNode) => {
+      if (
+        node.name.type === 'String' &&
+        dependencyKeys.includes(node.name.value) &&
+        node.value.type === 'Object'
+      ) {
+        for (const member of node.value.members) {
+          if (member.name.type === 'String') {
+            callback(
+              context,
+              member as unknown as Rule.Node,
+              member.name.value
+            );
+          }
+        }
+      }
+    },
+    // Support for `jsonc-eslint-parser`
     'Program > JSONExpressionStatement > JSONObjectExpression > JSONProperty': (
       astNode: Rule.Node
     ) => {
