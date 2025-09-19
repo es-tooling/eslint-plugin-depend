@@ -44,9 +44,29 @@ For older legacy projects, add to your `.eslintrc.json`:
 
 Some rules (e.g. `ban-dependencies`) can be used against your `package.json`.
 
-You can achieve this by using `jsonc-eslint-parser`.
+You can achieve this by using `@eslint/json` or `jsonc-eslint-parser`.
 
-For example, in your `.eslintrc.json`:
+For example, with `@eslint/json` and `eslint.config.js`:
+
+```ts
+import depend from 'eslint-plugin-depend';
+import json from '@eslint/json';
+import {defineConfig} from 'eslint/config';
+
+export default defineConfig([
+  {
+    files: ['package.json'],
+    language: 'json/json',
+    plugins: {
+      depend,
+      json
+    },
+    extends: ['depend/flat/recommended'],
+  }
+]);
+```
+
+Or with `jsonc-eslint-parser` and `.eslintrc.json`:
 
 ```json
 {
@@ -64,6 +84,7 @@ For example, in your `.eslintrc.json`:
 ```
 
 Read more at the
+[`@eslint/json` docs](https://github.com/eslint/json) and
 [`jsonc-eslint-parser` docs](https://github.com/ota-meshi/jsonc-eslint-parser).
 
 ## Rules
