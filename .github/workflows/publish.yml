@@ -35,7 +35,7 @@ jobs:
           node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npm i -g npm@latest
       - run: npm version ${TAG_NAME} --git-tag-version=false
         env:
