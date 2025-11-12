@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "empathic": "^2.0.0",
-    "module-replacements": "^2.8.0",
+    "module-replacements": "^2.10.1",
     "semver": "^7.6.3"
   },
   "devDependencies": {
