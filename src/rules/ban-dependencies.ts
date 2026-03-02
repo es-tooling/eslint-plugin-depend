@@ -29,23 +29,27 @@ export const rule: Rule.RuleModule = {
       description: 'Bans a list of dependencies from being used',
       url: getDocsUrl('ban-dependencies')
     },
+    defaultOptions: [{}],
     schema: [
       {
         type: 'object',
         properties: {
           presets: {
+            description: 'Preset groups of modules to ban',
             type: 'array',
             items: {
               type: 'string'
             }
           },
           modules: {
+            description: 'Additional module names to ban',
             type: 'array',
             items: {
               type: 'string'
             }
           },
           allowed: {
+            description: 'Module names to allow even if matched by a preset',
             type: 'array',
             items: {
               type: 'string'

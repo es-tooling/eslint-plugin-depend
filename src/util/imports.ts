@@ -156,13 +156,14 @@ export function createPackageJsonListener(
 ): Rule.RuleListener {
   return {
     // Support for `@eslint/json`
-    'Document > Object > Member': (node: MemberNode) => {
+    'Document > Object > Member': (node: unknown) => {
+      const memberNode = node as MemberNode;
       if (
-        node.name.type === 'String' &&
-        dependencyKeys.includes(node.name.value) &&
-        node.value.type === 'Object'
+        memberNode.name.type === 'String' &&
+        dependencyKeys.includes(memberNode.name.value) &&
+        memberNode.value.type === 'Object'
       ) {
-        for (const member of node.value.members) {
+        for (const member of memberNode.value.members) {
           if (member.name.type === 'String') {
             callback(
               context,

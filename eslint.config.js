@@ -1,6 +1,7 @@
 import eslintjs from '@eslint/js';
 import {configs as tseslintConfigs} from 'typescript-eslint';
-import pluginRecommended from 'eslint-plugin-eslint-plugin/configs/recommended';
+import eslintPlugin from 'eslint-plugin-eslint-plugin';
+const pluginRecommended = eslintPlugin.configs.recommended;
 
 const {configs: eslintConfigs} = eslintjs;
 
