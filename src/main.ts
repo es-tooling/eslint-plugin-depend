@@ -22,6 +22,10 @@ const plugin: ESLint.Plugin = {
 };
 
 export const configs = {
+  /**
+   * @deprecated Use `flat/recommended` instead.
+   * This legacy eslintrc format is not supported by ESLint 10.
+   */
   recommended: configLegacyRecommended,
   'flat/recommended': configRecommended(plugin)
 };

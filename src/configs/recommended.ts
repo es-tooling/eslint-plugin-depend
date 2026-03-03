@@ -1,6 +1,6 @@
 import type {ESLint, Linter} from 'eslint';
 
-export const configFactory = (plugin: ESLint.Plugin): Linter.FlatConfig => ({
+export const configFactory = (plugin: ESLint.Plugin): Linter.Config => ({
   plugins: {
     depend: plugin
   },

@@ -38,29 +38,31 @@
   "overrides": {
     "vite": "npm:rolldown-vite@7.0.11"
   },
+  "peerDependencies": {
+    "eslint": ">=8.40.0"
+  },
   "dependencies": {
     "empathic": "^2.0.0",
     "module-replacements": "^2.10.1",
     "semver": "^7.6.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.35.0",
-    "@eslint/json": "^0.13.2",
+    "@eslint/js": "^10.0.1",
+    "@eslint/json": "^1.0.1",
     "@humanwhocodes/momoa": "^3.3.9",
-    "@types/eslint": "^9.6.1",
     "@types/estree": "^1.0.8",
     "@types/node": "^24.4.0",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/typescript-estree": "^8.43.0",
     "@vitest/coverage-v8": "3.2.4",
-    "eslint": "^9.35.0",
-    "eslint-plugin-eslint-plugin": "^6.2.0",
-    "eslint-vitest-rule-tester": "2.2.1",
+    "eslint": "^10.0.1",
+    "eslint-plugin-eslint-plugin": "^7.3.1",
+    "eslint-vitest-rule-tester": "^3.1.0",
     "jsonc-eslint-parser": "^2.4.0",
     "premove": "^4.0.0",
     "prettier": "^3.3.3",
     "typescript": "5.9.2",
-    "typescript-eslint": "^8.43.0",
+    "typescript-eslint": "^8.56.1",
     "vitest": "3.2.4"
   }
 }
