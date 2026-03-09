@@ -7,24 +7,24 @@ import {
 
 describe('getDocsUrl', () => {
   test('gets the url of a given rule doc', () => {
-    expect(getDocsUrl('bloop')).toEqual(
-      'https://github.com/es-tooling/eslint-plugin-depend/blob/main/docs/rules/bloop.md'
+    expect(getDocsUrl('ban-dependencies')).toEqual(
+      'https://github.com/es-tooling/eslint-plugin-depend/blob/main/docs/rules/ban-dependencies.md'
     );
   });
 });
 
 describe('getMdnUrl', () => {
   test('gets the url of a given mdn doc', () => {
-    expect(getMdnUrl('bloop')).toEqual(
-      'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/bloop'
+    expect(getMdnUrl('Global_Objects/Date/now')).toEqual(
+      'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now'
     );
   });
 });
 
 describe('getReplacementsDocUrl', () => {
   test('gets the url of a given replacements doc', () => {
-    expect(getReplacementsDocUrl('bloop')).toEqual(
-      'https://github.com/es-tooling/module-replacements/blob/main/docs/modules/bloop.md'
+    expect(getReplacementsDocUrl('dotenv')).toEqual(
+      'https://e18e.dev/docs/replacements/dotenv.html'
     );
   });
 });
