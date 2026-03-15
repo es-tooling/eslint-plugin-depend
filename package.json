@@ -39,7 +39,16 @@
     "vite": "npm:rolldown-vite@7.0.11"
   },
   "peerDependencies": {
-    "eslint": ">=8.40.0"
+    "eslint": ">=8.40.0",
+    "oxlint": "^1.55.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    },
+    "oxlint": {
+      "optional": true
+    }
   },
   "dependencies": {
     "empathic": "^2.0.0",
