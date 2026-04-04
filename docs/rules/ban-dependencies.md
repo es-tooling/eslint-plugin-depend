@@ -18,7 +18,7 @@ set)
 - `preferred` - an opinionated list of packages with better maintained and
 lighter alternatives
   - Note the list for this is sourced from
-[`module-replacements`](https://github.com/es-tooling/module-replacements)
+[`module-replacements`](https://github.com/e18e/module-replacements)
 
 Example config:
 
