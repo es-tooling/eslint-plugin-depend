@@ -2,8 +2,19 @@
 
 This is an ESLint plugin to help suggest alternatives to various dependencies.
 
-Primarily, it will help detect dependency tree bloat and redundant
-polyfills.
+Primarily, it will help detect dependency tree bloat and redundant polyfills.
+
+> [!NOTE]
+> The functionality of this plugin is now available in the [@e18e/eslint-plugin](https://github.com/e18e/eslint-plugin), as well as many more performance and quality of life rules.
+> You can easily migrate by replacing `eslint-plugin-depend` with `@e18e/eslint-plugin` in your `package.json` and updating your ESLint config.
+> ```js
+> import e18e from '@e18e/eslint-plugin';
+> import {defineConfig} from 'eslint/config';
+> 
+> export default defineConfig([
+>   e18e.configs.recommended,
+> ]);
+> ```
 
 ## Install
 
